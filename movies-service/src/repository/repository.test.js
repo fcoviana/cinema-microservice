@@ -29,6 +29,7 @@ function runTests(){
  
     test('Repository GetMoviePremiers', (t) => {
         repository.getMoviePremiers((err, movies) => {
+            console.log('filme', movies)
             t.assert(!err && movies && movies.length > 0, "Movie Premiers Returned");
             t.end();
         });
