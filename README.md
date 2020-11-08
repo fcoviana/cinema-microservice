@@ -9,9 +9,9 @@ Tem como objetivo exemplificar a criação de micro-serviços com NodeJS.
     movies-service
     data
     src
-	    - api
-			-- movies.js
-			-- movies.test.js
+	- api
+	    -- movies.js
+	    -- movies.test.js
         - config
             -- mongodb.js
             -- mongodb.test.js
