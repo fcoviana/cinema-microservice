@@ -1,26 +1,32 @@
 const mongodb = require("../config/mongodb");
+const ObjectId = require("mongodb").ObjectId;
 
-function getAllMovies(callback) {
+function getAllCities(callback) {
     mongodb.connect((err, db) => {
-        db.collection("movies").find().toArray(callback);
+        db.collection("cinemaCatalog").find({}, { cidade: 1, uf: 1, pais: 1 }).toArray(callback);
     })
 }
 
-function getMovieById(id, callback) {
+function getCinemasByCityId(cityId, callback) {
+    var objCityId = ObjectId(cityId);
     mongodb.connect((err, db) => {
-        db.collection("movies").findOne({ _id: require("mongodb").ObjectId(id) }, callback);
+        db.collection("cinemaCatalog").find({ _id: objCityId }, { cinemas: 1 }).toArray((err, cities) => {
+            if (err) return callback(err, null);
+            callback(err, cities[0].cinemas);
+        });
     });
 }
 
-function getMoviePremiers(callback) {
-
-    var monthAgo = new Date();
-    monthAgo.setMonth(monthAgo.getMonth() - 1);
-    monthAgo.setHours(0, 0, 0);
-    monthAgo.setMilliseconds(0);
-
+function getMoviesByCinemaId(cinemaId, callback){
+    var objCinemaId = ObjectId(cinemaId);
     mongodb.connect((err, db) => {
-        db.collection("movies").find({ dataLancamento: { $gte: monthAgo } }).toArray(callback);
+        db.collection("cinemaCatalog").aggregate([
+            {$match: {"cinemas._id": objCinemaId}},
+            {$unwind: "$cinemas"},
+            {$unwind: "$cinemas.salas"},
+            {$unwind: "$cinemas.salas.sessoes"},
+            {$group: {_id: { filme: "$cinemas.salas.sessoes.filme", idFilme: "$cinemas.salas.sessoes.idFilme"}}}
+        ]).toArray(callback);
     });
 }
 
@@ -28,38 +34,4 @@ function disconnect() {
     return mongodb.disconnect();
 }
 
-function create(callback) {
-    mongodb.connect((err, db) => {
-    
-        db.collection("movies").insert([
-            {
-                titulo: "Os Vingadores: Guerra Infinita",
-                sinopse: "Os heróis mais poderosos da Marvel enfrentando o Thanos",
-                duracao: 120,
-                dataLancamento: ISODate("2018-11-01T00:00:00Z"),
-                imagem: "https://www.jornalcontabil.com.br/wp-content/uploads/2019/04/VINGADORES.jpg",
-                categorias: ["Aventura", "Ação"]
-            },
-            {
-                titulo: "Os Vingadores: Era de Ultron",
-                sinopse: "Os heróis mais poderosos da Marvel enfrentando o Ultron",
-                duracao: 110,
-                dataLancamento: ISODate("2016-11-01T00:00:00Z"),
-                imagem: "https://www.jornalcontabil.com.br/wp-content/uploads/2019/04/VINGADORES.jpg",
-                categorias: ["Aventura", "Ação"]
-            },
-            {
-                titulo: "Os Vingadores",
-                sinopse: "Os heróis mais poderosos da Marvel enfrentando o Loki",
-                duracao: 100,
-                dataLancamento: ISODate("2014-11-01T00:00:00Z"),
-                imagem: "https://www.jornalcontabil.com.br/wp-content/uploads/2019/04/VINGADORES.jpg",
-                categorias: ["Aventura", "Ação"]
-            }
-        ], callback);
-    });
-}
-
-// create((err, movies) => console.log('wewew'))
-
-module.exports = { getAllMovies, getMovieById, getMoviePremiers, disconnect }
+module.exports = { getAllCities, getCinemasByCityId, getMoviesByCinemaId, disconnect }

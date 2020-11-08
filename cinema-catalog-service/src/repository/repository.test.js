@@ -1,44 +1,35 @@
 const test = require('tape');
 const repository = require('./repository');
- 
+
 function runTests(){
- 
-    var id = null;
- 
-    test('Repository GetAllMovies', (t) => {
-        repository.getAllMovies((err, movies) => {
-            if(movies && movies.length > 0) id = movies[0]._id;
+
+    var cityId = null;
+    var cinemaId = null;
+    var movieId = null;
+
+    test('Repository getAllCities', (t) => {
+        repository.getAllCities((err, cities) => {
+            if(cities && cities.length > 0) cityId = cities[0]._id;
+            console.log('cidade', cities[0]._id)
             
-            t.assert(!err && movies && movies.length > 0, "All Movies Returned");
+            t.assert(!err && cities && cities.length > 0, "All Cities Returned");
             t.end();
         });
     })
     
-    test('Repository GetMovieById', (t) => {
-        if(!id) {
-            t.assert(false, "Movie by Id Returned");
-            t.end();
-            return;
-        }
- 
-        repository.getMovieById(id, (err, movie) => {
-            t.assert(!err && movie, "Movie by Id Returned");
+    test('Repository getCinemasByCityId', (t) => {
+        repository.getCinemasByCityId(cityId, (err, cinemas) => {
+            if(cinemas && cinemas.length > 0) cinemaId = cinemas[0]._id;
+            
+            t.assert(!err && cinemas && cinemas.length > 0, "All Cinemas Returned By City Id");
             t.end();
         });
     })
- 
-    test('Repository GetMoviePremiers', (t) => {
-        repository.getMoviePremiers((err, movies) => {
-            console.log('filme', movies)
-            t.assert(!err && movies && movies.length > 0, "Movie Premiers Returned");
-            t.end();
-        });
-    })
- 
+
     test('Repository Disconnect', (t) => {
         t.assert(repository.disconnect(), "Disconnect Ok");
         t.end();
     })
 }
- 
+
 module.exports = { runTests }
