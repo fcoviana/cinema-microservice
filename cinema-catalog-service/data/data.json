@@ -1,0 +1,64 @@
+{
+    "_id": {
+        "$oid": "5fa80181754895f58c4bcc87"
+    },
+    "cidade": "Quixada",
+    "uf": "CE",
+    "pais": "BR",
+    "cinemas": [
+        {
+            "_id": {
+                "$oid": "5fa80247754895f58c4bcc88"
+            },
+            "nome": "Pinheiro Bom vizinho",
+            "salas": [
+                {
+                    "nome": "1",
+                    "sessoes": [
+                        {
+                            "data": {
+                                "$date": "2020-11-07T09:00:00.000Z"
+                            },
+                            "idFilme": {
+                                "$oid": "5fa6930c445670850788be47"
+                            },
+                            "filme": "Os Vingadores: Guerra Infinita",
+                            "valor": 25,
+                            "assentos": [
+                                {
+                                    "numero": 1,
+                                    "disponivel": true
+                                },
+                                {
+                                    "numero": 2,
+                                    "disponivel": false
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "nome": "2",
+                    "sessoes": [
+                        {
+                            "data": {
+                                "$date": "2020-11-07T09:00:00.000Z"
+                            },
+                            "idFilme": {
+                                "$oid": "5fa69a9419e16b22177d976c"
+                            },
+                            "filme": "Os Vingadores: Guerra Infinita",
+                            "valor": 30,
+                            "assentos": [
+                                {
+                                    "numero": "1",
+                                    "disponivel": false
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "_id": {
+        "$oid": "5fa6930c445670850788be47"
+    },
+    "titulo": "Os Vingadores: Guerra Infinita",
+    "sinopse": "Os heróis mais poderosos da Marvel enfrentando o Thanos",
+    "duracao": 120,
+    "dataLancamento": {
+        "$date": "2020-11-07T03:00:00.000Z"
+    },
+    "imagem": "https://www.jornalcontabil.com.br/wp-content/uploads/2019/04/VINGADORES.jpg",
+    "categorias": [
+        "Aventura",
+        "Ação"
+    ]
+}
