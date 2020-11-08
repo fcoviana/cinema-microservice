@@ -7,7 +7,7 @@ Tem como objetivo exemplificar a criação de micro-serviços com NodeJS.
 
 #### Arquitetura
 
-<div align="center"><a href="#"><img width="722" height="265" src="./assets/img/consulta-de-lancamentos.png"></a></div>
+<div align="center"><a href="#"><img width="700" height="265" src="./assets/img/consulta-de-lancamentos.png"></a></div>
 
 ---
 
