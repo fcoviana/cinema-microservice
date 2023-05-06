@@ -16,16 +16,14 @@
 - morgan
 - supertest
 
-#### Comandos
+### Comandos
 ###### Executar Testes
 ```shell
 $ npm test
 ```
-
 ###### Executar servidor
 ```shell
 $ npm start
 ```
-
-### Criador
+### By
 > Francisco Viana
